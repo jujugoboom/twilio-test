@@ -7,4 +7,4 @@ import twilio.twiml
 def handle(request):
     response = twilio.twiml.Response()
     response.message("Thanks for the message")
-    return str(response)
+    return response
