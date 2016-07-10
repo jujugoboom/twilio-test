@@ -43,9 +43,8 @@ def personal(request):
                                to=to,
                                body=convert_message(total[1:]))
         response = twilio.twiml.Response()
-        message = "Sent message \"%s\" to %s from %s" % (convert_message(total[1:]),
-                                                         to,
-                                                         from_number)
+        message = "Sent message \"%s\" to %s" % (convert_message(total[1:]),
+                                                 to)
         response.message(message)
         return response
 
