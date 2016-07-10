@@ -17,12 +17,9 @@ def handle(request):
     from_number = request.values.get("From", None)
     response = None
     if from_number == PERSONAL_NUMBER:
-        response = personal(request)
-    #else:
-        #forward(request)
-    if response is None:
-        response = twilio.twiml.Response()
-        response.message(str(random.randint(1, 2)))
+        return HttpResponse(personal(request))
+    response = twilio.twiml.Response()
+    response.message(str(random.randint(1, 2)))
     return HttpResponse(response)
 
 
