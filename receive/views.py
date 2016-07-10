@@ -14,7 +14,7 @@ client = TwilioRestClient()
 
 @csrf_exempt
 def handle(request):
-    from_number = request.values.get("From", None)
+    from_number = request.POST.get("From", None)
     response = None
     if from_number == PERSONAL_NUMBER:
         return HttpResponse(personal(request))
