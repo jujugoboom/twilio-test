@@ -40,6 +40,8 @@ def personal(request):
         print messages
         latest = messages[0]
         print latest
+        print latest.message
+        print latest.date_sent
         for message in messages:
             if message.date_sent > latest.date_sent:
                 latest = message
