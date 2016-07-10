@@ -18,7 +18,7 @@ def handle(request):
     response = None
     if from_number == PERSONAL_NUMBER:
         response = personal(request)
-    else:
+    #else:
         #forward(request)
     if response is None:
         response = twilio.twiml.Response()
