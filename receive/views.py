@@ -39,9 +39,11 @@ def personal(request):
         total = body.split()
         to = convert_to_e164(total[0])
         from_number = request.POST.get("To")
-        client.messages.create(from_=from_number, to=to, body=total[1:])
+        client.messages.create(from_=from_number,
+                               to=to,
+                               body=convert_message(total[1:]))
         response = twilio.twiml.Response()
-        message = "Sent message \"%s\" to %s from %s" % (total[1:],
+        message = "Sent message \"%s\" to %s from %s" % (convert_message(total[1:]),
                                                          to,
                                                          from_number)
         response.message(message)
@@ -52,7 +54,7 @@ def forward(request):
     body = request.POST.get("Body")
     message_from = request.POST.get("From")
     message_to = request.POST.get("To")
-    message = "Got message \"%s\" from %s" (body, message_from)
+    message = "Got message \"%s\" from %s" % (body, message_from)
     client.messages.create(from_=message_to, to=PERSONAL_NUMBER, body=message)
     return twilio.twiml.Response()
 
@@ -71,3 +73,10 @@ def convert_to_e164(raw_phone):
     phone_representation = phonenumbers.parse(raw_phone, parse_type)
     return phonenumbers.format_number(phone_representation,
                                       phonenumbers.PhoneNumberFormat.E164)
+
+
+def convert_message(message):
+    result = ""
+    for s in message:
+        result += s + " "
+    return result[:-1]
