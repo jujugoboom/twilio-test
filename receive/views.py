@@ -37,7 +37,9 @@ def personal(request):
         return response
     elif body == "last":
         messages = client.messages.list(to=request.POST.get("To"))
+        print messages
         latest = messages[0]
+        print latest
         for message in messages:
             if message.date_sent > latest.date_sent:
                 latest = message
