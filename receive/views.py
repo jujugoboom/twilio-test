@@ -8,4 +8,4 @@ import twilio.twiml
 def handle(request):
     response = twilio.twiml.Response()
     response.message("Thanks for the message")
-    return HttpResponse(response)
+    return HttpResponse(str(response))
