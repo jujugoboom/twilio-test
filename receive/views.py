@@ -35,22 +35,6 @@ def personal(request):
         response = twilio.twiml.Response()
         response.message(numbers)
         return response
-    elif body == "last":
-        messages = client.messages.list(to=request.POST.get("To"))
-        print messages
-        latest = messages[0]
-        print latest
-        print latest.body
-        print latest.date_sent
-        for message in messages:
-            if message.date_sent > latest.date_sent:
-                latest = message
-        response = twilio.twiml.Response()
-        message = "From: %s To: %s Message: %s" % (latest.from_,
-                                                   latest.to,
-                                                   latest.message)
-        response.message(message)
-        return response
     else:
         total = body.split()
         to = convert_to_e164(total[0])
