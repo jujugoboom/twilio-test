@@ -1,1 +1,1 @@
-web: gunicorn twiliotest --logfile -
+web: gunicorn twiliotest.wsgi --logfile -
