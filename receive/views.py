@@ -20,7 +20,7 @@ def handle(request):
         return HttpResponse(personal(request))
     else:
         return HttpResponse(forward(request))'''
-    possible = ['1'] * 50 + ['2'] * 50 + ["one"] * 5 + ["two"] * 5 + ['3'] * 5 + ['一']
+    possible = ['1'] * 50 + ['2'] * 50 + ["one"] * 5 + ["two"] * 5 + ['3'] * 5
     response = twilio.twiml.Response()
     response.message(str(random.choice(possible)))
     return HttpResponse(response)
