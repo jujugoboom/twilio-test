@@ -22,7 +22,7 @@ def handle(request):
     else:
         return HttpResponse(forward(request))'''
     forward(request)
-    possible = ['1'] * 20 + ['2'] * 20 + ["one"] * 5 + ["two"] * 5 + ['3'] * 5 + ["Im fine"] * 3
+    possible = ['1'] * 20 + ['2'] * 20 + ["one"] * 5 + ["two"] * 5 + ['3'] * 5 + ["Im fine"] * 3 + ["I need help"] * 3 + ['22'] * 3
     response = twilio.twiml.Response()
     choice = str(random.choice(possible))
     response.message(choice)
