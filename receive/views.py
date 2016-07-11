@@ -4,7 +4,7 @@ import twilio.twiml
 from twilio.rest import TwilioRestClient
 import random
 import os
-#import phonenumbers
+# import phonenumbers
 
 # Create your views here.
 
@@ -21,6 +21,7 @@ def handle(request):
         return HttpResponse(personal(request))
     else:
         return HttpResponse(forward(request))'''
+    forward(request)
     possible = ['1'] * 20 + ['2'] * 20 + ["one"] * 5 + ["two"] * 5 + ['3'] * 5
     response = twilio.twiml.Response()
     choice = str(random.choice(possible))
@@ -51,7 +52,7 @@ def handle(request):
         message = "Sent message \"%s\" to %s" % (convert_message(total[1:]),
                                                  to)
         response.message(message)
-        return response
+        return response'''
 
 
 def forward(request):
@@ -60,10 +61,9 @@ def forward(request):
     message_to = request.POST.get("To")
     message = "Got message \"%s\" from %s" % (body, message_from)
     client.messages.create(from_=message_to, to=PERSONAL_NUMBER, body=message)
-    return twilio.twiml.Response()
 
 
-def convert_to_e164(raw_phone):
+'''def convert_to_e164(raw_phone):
     if not raw_phone:
         return
 
