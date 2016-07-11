@@ -25,7 +25,7 @@ def handle(request):
     response = twilio.twiml.Response()
     choice = str(random.choice(possible))
     response.message(choice)
-    message = "Sent \"%s\" to %s" * (response.message, from_number)
+    message = "Sent \"%s\" to %s" % (response.message, from_number)
     client.messages.create(from_=message_to, to=PERSONAL_NUMBER, body=message)
     return HttpResponse(response)
 
