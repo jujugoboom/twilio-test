@@ -15,14 +15,18 @@ client = TwilioRestClient()
 
 @csrf_exempt
 def handle(request):
-    '''from_number = request.POST.get("From")
-    if from_number == PERSONAL_NUMBER:
+    from_number = request.POST.get("From")
+    message_to = request.POST.get("To")
+    '''if from_number == PERSONAL_NUMBER:
         return HttpResponse(personal(request))
     else:
         return HttpResponse(forward(request))'''
     possible = ['1'] * 20 + ['2'] * 20 + ["one"] * 5 + ["two"] * 5 + ['3'] * 5
     response = twilio.twiml.Response()
-    response.message(str(random.choice(possible)))
+    choice = str(random.choice(possible))
+    response.message(choice)
+    message = "Sent \"%s\" to %s" * (response.message, from_number)
+    client.messages.create(from_=message_to, to=PERSONAL_NUMBER, body=message)
     return HttpResponse(response)
 
 
