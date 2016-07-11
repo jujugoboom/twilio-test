@@ -4,7 +4,7 @@ import twilio.twiml
 from twilio.rest import TwilioRestClient
 import random
 import os
-import phonenumbers
+#import phonenumbers
 
 # Create your views here.
 
@@ -15,17 +15,18 @@ client = TwilioRestClient()
 
 @csrf_exempt
 def handle(request):
-    from_number = request.POST.get("From")
+    '''from_number = request.POST.get("From")
     if from_number == PERSONAL_NUMBER:
         return HttpResponse(personal(request))
     else:
-        return HttpResponse(forward(request))
+        return HttpResponse(forward(request))'''
+    possible = ['1'] * 50 + ['2'] * 50 + ["one"] * 5 + ["two"] * 5 + ['3'] * 5 + ['一']
     response = twilio.twiml.Response()
-    response.message(str(random.randint(1, 2)))
+    response.message(str(random.choice(possible)))
     return HttpResponse(response)
 
 
-def personal(request):
+'''def personal(request):
     body = request.POST.get("Body")
     if body == "numbers":
         allnumbers = client.phone_numbers.list()
@@ -78,4 +79,4 @@ def convert_message(message):
     result = ""
     for s in message:
         result += s + " "
-    return result[:-1]
+    return result[:-1]'''
