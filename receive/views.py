@@ -4,7 +4,7 @@ import twilio.twiml
 from twilio.rest import TwilioRestClient
 import random
 import os
-# import phonenumbers
+import phonenumbers
 
 # Create your views here.
 
@@ -16,22 +16,16 @@ client = TwilioRestClient()
 @csrf_exempt
 def handle(request):
     from_number = request.POST.get("From")
-    message_to = request.POST.get("To")
-    '''if from_number == PERSONAL_NUMBER:
+    if from_number == PERSONAL_NUMBER:
         return HttpResponse(personal(request))
     else:
-        return HttpResponse(forward(request))'''
-    forward(request)
-    possible = ['1'] * 20 + ['2'] * 20 + ["one"] * 5 + ["two"] * 5 + ['3'] * 5 + ["Im fine"] * 3 + ["I need help"] * 3 + ['22'] * 3
+        return HttpResponse(forward(request))
     response = twilio.twiml.Response()
-    choice = str(random.choice(possible))
-    response.message(choice)
-    message = "Sent \"%s\" to %s" % (choice, from_number)
-    client.messages.create(from_=message_to, to=PERSONAL_NUMBER, body=message)
+    response.message(str(random.randint(1, 2)))
     return HttpResponse(response)
 
 
-'''def personal(request):
+def personal(request):
     body = request.POST.get("Body")
     if body == "numbers":
         allnumbers = client.phone_numbers.list()
@@ -49,11 +43,10 @@ def handle(request):
                                to=to,
                                body=convert_message(total[1:]))
         response = twilio.twiml.Response()
-        message = "Sent message \"%s\" to %s from %s" % (convert_message(total[1:]),
-                                                         to,
-                                                         from_number)
+        message = "Sent message \"%s\" to %s" % (convert_message(total[1:]),
+                                                 to)
         response.message(message)
-        return response'''
+        return response
 
 
 def forward(request):
@@ -62,9 +55,10 @@ def forward(request):
     message_to = request.POST.get("To")
     message = "Got message \"%s\" from %s" % (body, message_from)
     client.messages.create(from_=message_to, to=PERSONAL_NUMBER, body=message)
+    return twilio.twiml.Response()
 
 
-'''def convert_to_e164(raw_phone):
+def convert_to_e164(raw_phone):
     if not raw_phone:
         return
 
@@ -84,4 +78,4 @@ def convert_message(message):
     result = ""
     for s in message:
         result += s + " "
-    return result[:-1]'''
+    return result[:-1]
